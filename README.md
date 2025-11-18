@@ -20,6 +20,7 @@ house-price-prediction/
 │   └── evaluate_model.py       # metrics & plots
 │
 ├── results/
+|   ├── linear_regression_model.pkl
 │   ├── predictions.csv
 │   ├── model_performance.txt
 │   └── plots/
@@ -99,6 +100,7 @@ This script:
 ## Output
 After running all scripts, you'll find:
 
++ Trained Model: `results/linear_regression_model.pkl`
 + Model Performance: `results/model_performance.txt`
 + Predictions: `results/predictions.csv`
 + Visualizations:
