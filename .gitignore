@@ -29,7 +29,3 @@ venv/
 
 # Models
 results/*.pkl
-
-
-# Plots
-results/plots/*.png
