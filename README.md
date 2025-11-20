@@ -8,24 +8,28 @@ This project implements a linear regression model to predict house prices based 
 
 ## Project Structure
 ```text
-house-price-prediction/
+Task1/
 │
 ├── data/
-│   ├── train.csv
-│   ├── test.csv            # optional
+│ ├── train.csv
+│ ├── test.csv
+│ └── processed/
+│ ├── train_processed.csv
+│ ├── val_processed.csv
+│ └── test_processed.csv
 │
 ├── src/
-│   ├── data_preprocessing.py   # clean/select 3 features
-│   ├── train_model.py          # train Linear Regression
-│   └── evaluate_model.py       # metrics & plots
+│ ├── data_preprocessing.py
+│ ├── train_model.py
+│ └── evaluate_model.py
 │
 ├── results/
-|   ├── linear_regression_model.pkl
-│   ├── predictions.csv
-│   ├── model_performance.txt
-│   └── plots/
-│       ├── actual_vs_predicted.png
-│       └── residuals_plot.png
+│ ├── linear_regression_model.pkl
+│ ├── val_predictions.csv
+│ ├── model_performance.txt
+│ └── plots/
+│ ├── actual_vs_predicted.png
+│ └── residuals_plot.png
 │
 ├── requirements.txt
 ├── README.md
@@ -63,6 +67,7 @@ pandas
 matplotlib
 seaborn
 scikit-learn
+joblib
 ```
 
 ## Usage
@@ -72,10 +77,11 @@ python src/data_preprocessing.py
 ```
 This script:
 
-+ Loads the training data
++ Loads `train.csv` and `test.csv`
 + Selects relevant features (square footage, bedrooms, bathrooms)
 + Handles missing values
 + Splits data into training and validation sets
++ Saves processed CSVs
 
 2. Train the Model
 ```bash
@@ -83,9 +89,10 @@ python src/train_model.py
 ```
 This script:
 
++ Loads processed training data
 + Trains a linear regression model
-+ Saves the trained model
-+ Generates initial predictions
++ Saves model to `results/linear_regression_model.pkl`
++ Generates validation predictions
 
 3. Evaluate the Model
 ```bash
@@ -93,25 +100,42 @@ python src/evaluate_model.py
 ```
 This script:
 
-+ Calculates performance metrics (MSE, RMSE, R²)
-+ Generates visualization plots
-+ Saves results to the `results/` directory
++ Loads validation data and trained model
++ Calculates performance metrics (MSE, RMSE, MAE, R²)
++ Saves results to `results/model_performance.txt`
++ Creates:
+    + `actual_vs_predicted.png`
+    + `residuals_plot.png`
 
 ## Output
 After running all scripts, you'll find:
 
 + Trained Model: `results/linear_regression_model.pkl`
 + Model Performance: `results/model_performance.txt`
-+ Predictions: `results/predictions.csv`
++ Predictions: `results/val_predictions.csv`
 + Visualizations:
     + `results/plots/actual_vs_predicted.png`
     + `results/plots/residuals_plot.png`
+
+## Screenshots
+Below are the output plots generated during model evaluation.
+
+### 1. Actual vs Predicted Plot
+This plot compares the model's predicted values to the actual house prices.
+
+![Actual vs Predicted](results/plots/actual_vs_predicted.png)
+
+### 2. Residuals Plot
+This plot shows the distribution of residuals to help identify patterns or errors.
+
+![Residuals Plot](results/plots/residuals_plot.png)
 
 ## Model Performance Metrics
 The model is evaluated using:
 
 + Mean Squared Error (MSE)
 + Root Mean Squared Error (RMSE)
++ Mean Absolute Error (MAE)
 + R-squared (R²) Score
 
 ## Results Interpretation
